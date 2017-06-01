@@ -1,0 +1,33 @@
+div.mainInfo {
+    background-image: url('bg.jpg');
+	background-repeat: no-repeat; 
+	background-size: 450px 480px;
+}
+
+div.buttons {
+	margin-top: 15px;	
+	margin-left: 28px;
+}
+
+div.forecast {
+	margin-left: 45px;
+}
+
+span.forecast {
+	margin-left: 45px;
+}
+
+span.mainInfo {
+	margin-left: 45px;
+}
+
+span.temp {
+	margin-left: 45px;
+	font-size: 55px;
+}
+
+span.text {
+	margin-left: 45px;
+	font-size: 24px;
+	font-style: italic;
+}

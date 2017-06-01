@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="weather.js">
+</script>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div id="mainInfo" class="mainInfo">
+	<span id="title" class="mainInfo"></span>
+	<span id="data" class="mainInfo"></span>
+	<span id="temp" class="temp"></span>
+	<span id="text" class="text"></span>
+	<span id="wind" class="mainInfo"></span>
+	<span id="humidity" class="mainInfo"></span>
+	<span id="sunrise" class="mainInfo"></span>
+	<span id="forecast" class="mainInfo"></span>
+	<span id="sunset"></span> 
+	</br></br>
+	
+	<div id="box" class="forecast">
+	</div></br>
+
+	<div class="forecast">
+		<span id="fcdate"></span>
+		<span id="fchigh"></span>
+		<span id="fclow"></span>
+		<span id="fctext"></span>
+	</div></br></br>
+	
+	<div class="buttons">
+	<input type="text" name="cityName" value="Southampton" id="city" onkeypress="enterKey(event)"></input>
+	<button type="button" value="button" onclick="getLink()">Submit</button>
+	<button id="temperature" type="button" onclick='showTemperature()'>Set Celsius</button>
+	</div>
+
+</div>
+</body>
+</html>
