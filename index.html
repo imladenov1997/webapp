@@ -1,0 +1,155 @@
+<html>
+<head>
+<script>
+var x = "Test"
+var y = {
+	firstName:"Ivo",
+	lastName:"Mladenov",
+	fullName: function() {
+			return this.firstName + " " + this.lastName;
+		}
+	};
+	
+var names = ["Nikola", "Nakata"];
+var person = undefined;
+var temperature = 100;
+var isFahrenheit = true;
+
+function myFunction() {
+	document.getElementById("id").innerHTML = "Hello!";
+}
+
+function picOne() {
+	document.getElementById("image").src = "1.jpg";
+	document.getElementById("image").style = "width:200px";
+}
+
+function picTwo() {
+	document.getElementById("image").style = "width:600px";
+	document.getElementById("image").src = "2.jpg";
+}
+
+function writeNew() {
+	window.alert(y.fullName() + " " + names[1] + " " + typeof names);
+}
+
+function toCelsius() {
+	temperature = 5/9 * (temperature - 32);
+	return getTemperature();
+}
+
+function showTemperature() {
+	var elem = document.getElementById("id");
+	var button = document.getElementById("temperature");
+	if (isFahrenheit) {
+		elem.innerHTML = toCelsius();
+		button.innerHTML = "Set Fahrenheit";
+		isFahrenheit = false;
+	} else {
+		elem.innerHTML = toFahrenheit();
+		button.innerHTML = "Set Celsius";
+		isFahrenheit = true;
+	}
+	return temperature;	
+}
+
+function toFahrenheit() {
+	temperature = (9/5 * temperature) + 32;
+	return getTemperature();
+}
+
+function getTemperature() {
+	return temperature;
+}
+
+function getFirstElement() {
+	window.alert(names[0]);	
+}
+
+function getDate() {
+	return document.getElementById("date").innerHTML = Date();
+}
+
+var request = new XMLHttpRequest();
+
+function getLink() {
+	var Link = {
+		query: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22",
+		city: document.getElementById("city").value,
+		jsonFormat: "%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=",
+	};
+	
+	request.open('GET', Link.query+Link.city+Link.jsonFormat, true);
+	request.send(null);
+	
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status >= 200 && request.status <= 299) {
+			var myObj = JSON.parse(request.responseText);
+			document.getElementById("data").innerHTML = "Title: " + myObj.query.results.channel.title;
+			document.getElementById("wind").innerHTML = "Wind: " + myObj.query.results.channel.wind.chill;
+			document.getElementById("atmosphere").innerHTML = "Humidity: " + myObj.query.results.channel.atmosphere.humidity;
+			document.getElementById("astronomy").innerHTML = "Sunrise: " + myObj.query.results.channel.astronomy.sunrise;
+			document.getElementById("image").innerHTML = "Sunset: " + myObj.query.results.channel.astronomy.sunset;
+		}
+	}
+};
+
+var requestNew = new XMLHttpRequest();
+		
+function openDocument() {
+	requestNew.open('GET', "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22Southampton%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=", true);
+	requestNew.send(null);
+}
+		
+		
+function test() {
+	openDocument();
+	
+	requestNew.onreadystatechange = function() {
+	if (requestNew.readyState === 4 && requestNew.status >= 200 && requestNew.status <= 299) {
+		var myObj = JSON.parse(requestNew.responseText);
+		document.getElementById("data").innerHTML = myObj.query.results.channel.title;
+		document.getElementById("wind").innerHTML = "Title " + myObj.query.results.channel.wind.chill;
+		document.getElementById("atmosphere").innerHTML = "Title " + myObj.query.results.channel.title;
+		document.getElementById("astronomy").innerHTML = "Title " + myObj.query.results.channel.title;
+		document.getElementById("image").innerHTML = "Title " + myObj.query.results.channel.title;
+	}
+}; 	
+}
+
+</script>
+<script>
+  var callbackFunction = function(data) {
+    var wind = data.query.results.channel.wind;
+    alert(wind.chill);
+  };
+</script>
+</head>
+<body>
+<p id="id"></p>
+<p id="date"></p>
+<p id="data"></p>
+<p id="wind"></p>
+<p id="atmosphere"></p>
+<p id="astronomy"></p>
+<p id="image"></p>
+
+<button onclick="myFunction()">Click</button>
+
+<img src="1.jpg" id="image" style="width:200px"></img>
+
+<button onclick='picOne()'>Click</button>
+<button onclick='picTwo()'>Click</button>
+<button id="temperature" type="button" onclick='showTemperature()'>Set Celsius</button>
+<button id="test" type="button" onclick='writeNew()' onmouseover="showTemperature()">Get Name</button>
+<button id="date" type="button" onclick="getDate()">Get Date</button>
+<button id="dateNew	" type="button" onclick="test()">Get Date</button>
+
+<br><br>
+
+<input type="text" name="cityName" value="cityValue" id="city"></input>
+<button type="button" value="button" onclick="getLink()">Submit</input>
+
+
+</body>
+</html>
